@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>d:\hal\swordandmagic\swordandmagic\swordandmagic</FILEPATH>
+      <FILENAME>scenecontroller.cpp</FILENAME>
+      <LINE>9</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'SceneController::nextSceneNumber' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>SceneController::{ctor}</FUNCTION>
+    <DECORATED>??0SceneController@@QEAA@XZ</DECORATED>
+    <FUNCLINE>9</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

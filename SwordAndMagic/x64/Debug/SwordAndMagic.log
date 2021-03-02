@@ -1,0 +1,19 @@
+﻿  compilation object save succeeded; see D:\HAL\SwordAndMagic\SwordAndMagic\x64\Debug\VertexOutline.cso
+  Animator.cpp
+  FbxModel.cpp
+  ModelBank.cpp
+  ModelData.cpp
+  SceneGame.cpp
+  SceneTitle.cpp
+d:\program files (x86)\microsoft visual studio\2017\professional\vc\tools\msvc\14.16.27023\include\memory(2539): warning C4244: '引数': '_Ty' から 'float' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+  d:\hal\swordandmagic\swordandmagic\swordandmagic\scenetitle.cpp(47): note: コンパイル対象の関数 テンプレート インスタンス化 'std::unique_ptr<RotationComponent,std::default_delete<_Ty>> std::make_unique<RotationComponent,C_GameObject*,int,0>(C_GameObject *&&,int &&)' のリファレンスを確認してください
+          with
+          [
+              _Ty=RotationComponent
+          ]
+  コードを生成中...
+  SwordAndMagic.vcxproj -> D:\HAL\SwordAndMagic\SwordAndMagic\x64\Debug\SwordAndMagic.exe

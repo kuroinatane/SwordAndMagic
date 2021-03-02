@@ -1,0 +1,32 @@
+﻿  SceneTitle.cpp
+d:\program files (x86)\microsoft visual studio\2017\professional\vc\tools\msvc\14.16.27023\include\memory(2539): warning C4244: '引数': '_Ty' から 'float' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+  d:\hal\swordandmagic\swordandmagic\swordandmagic\scenetitle.cpp(47): note: コンパイル対象の関数 テンプレート インスタンス化 'std::unique_ptr<RotationComponent,std::default_delete<_Ty>> std::make_unique<RotationComponent,C_GameObject*,int,0>(C_GameObject *&&,int &&)' のリファレンスを確認してください
+          with
+          [
+              _Ty=RotationComponent
+          ]
+  コード生成しています。
+  1 of 3092 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
+  コード生成が終了しました。
+PhysXExtensions_static_64.lib(ExtCpuWorkerThread.obj) : warning LNK4099: PDB 'PhysXExtensions_static_64.pdb' が 'PhysXExtensions_static_64.lib(ExtCpuWorkerThread.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXExtensions_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXExtensions_static_64.lib(ExtDefaultCpuDispatcher.obj) : warning LNK4099: PDB 'PhysXExtensions_static_64.pdb' が 'PhysXExtensions_static_64.lib(ExtDefaultCpuDispatcher.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXExtensions_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXExtensions_static_64.lib(ExtDefaultErrorCallback.obj) : warning LNK4099: PDB 'PhysXExtensions_static_64.pdb' が 'PhysXExtensions_static_64.lib(ExtDefaultErrorCallback.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXExtensions_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXExtensions_static_64.lib(ExtDefaultSimulationFilterShader.obj) : warning LNK4099: PDB 'PhysXExtensions_static_64.pdb' が 'PhysXExtensions_static_64.lib(ExtDefaultSimulationFilterShader.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXExtensions_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXExtensions_static_64.lib(ExtRigidBodyExt.obj) : warning LNK4099: PDB 'PhysXExtensions_static_64.pdb' が 'PhysXExtensions_static_64.lib(ExtRigidBodyExt.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXExtensions_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXExtensions_static_64.lib(ExtSimpleFactory.obj) : warning LNK4099: PDB 'PhysXExtensions_static_64.pdb' が 'PhysXExtensions_static_64.lib(ExtSimpleFactory.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXExtensions_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXPvdSDK_static_64.lib(PxProfileEventImpl.obj) : warning LNK4099: PDB 'PhysXPvdSDK_static_64.pdb' が 'PhysXPvdSDK_static_64.lib(PxProfileEventImpl.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXPvdSDK_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXPvdSDK_static_64.lib(PxPvd.obj) : warning LNK4099: PDB 'PhysXPvdSDK_static_64.pdb' が 'PhysXPvdSDK_static_64.lib(PxPvd.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXPvdSDK_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXPvdSDK_static_64.lib(PxPvdDataStream.obj) : warning LNK4099: PDB 'PhysXPvdSDK_static_64.pdb' が 'PhysXPvdSDK_static_64.lib(PxPvdDataStream.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXPvdSDK_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXPvdSDK_static_64.lib(PxPvdDefaultSocketTransport.obj) : warning LNK4099: PDB 'PhysXPvdSDK_static_64.pdb' が 'PhysXPvdSDK_static_64.lib(PxPvdDefaultSocketTransport.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXPvdSDK_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXPvdSDK_static_64.lib(PxPvdImpl.obj) : warning LNK4099: PDB 'PhysXPvdSDK_static_64.pdb' が 'PhysXPvdSDK_static_64.lib(PxPvdImpl.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXPvdSDK_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXPvdSDK_static_64.lib(PxPvdMemClient.obj) : warning LNK4099: PDB 'PhysXPvdSDK_static_64.pdb' が 'PhysXPvdSDK_static_64.lib(PxPvdMemClient.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXPvdSDK_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXPvdSDK_static_64.lib(PxPvdObjectModelMetaData.obj) : warning LNK4099: PDB 'PhysXPvdSDK_static_64.pdb' が 'PhysXPvdSDK_static_64.lib(PxPvdObjectModelMetaData.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXPvdSDK_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXPvdSDK_static_64.lib(PxPvdObjectRegistrar.obj) : warning LNK4099: PDB 'PhysXPvdSDK_static_64.pdb' が 'PhysXPvdSDK_static_64.lib(PxPvdObjectRegistrar.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXPvdSDK_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+PhysXPvdSDK_static_64.lib(PxPvdProfileZoneClient.obj) : warning LNK4099: PDB 'PhysXPvdSDK_static_64.pdb' が 'PhysXPvdSDK_static_64.lib(PxPvdProfileZoneClient.obj)' で、または 'D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\PhysXPvdSDK_static_64.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+  SwordAndMagic.vcxproj -> D:\HAL\SwordAndMagic\SwordAndMagic\x64\Release\SwordAndMagic.exe
