@@ -7,7 +7,7 @@
 
 #include "main.h"
 #include "Component.h"
-#include "PhyXGenerator.h"
+#include "PhysXGenerator.h"
 
 class C_GameObject;
 /**
@@ -18,9 +18,15 @@ class RigidStaticComponent : public C_Component {
 private:
 	C_GameObject*					m_pObj;					// オブジェクトへのポインタ
 	physx::PxRigidStatic*			m_pRigidStatic;					// オブジェクトへのポインタ
+	physx::PxShape*			m_pShape;					// オブジェクトへのポインタ
 public:
 	RigidStaticComponent(C_GameObject* obj, DirectX::XMFLOAT3 material, const physx::PxGeometry& geometory);
 	~RigidStaticComponent();
 	void Update(void);
 	void Draw();
+	physx::PxRigidActor* GetActor();
+	void SetPosition(DirectX::XMFLOAT3 setPosition);
+	void SetRotation(DirectX::XMFLOAT3 setRotation);
+	void Move(DirectX::XMFLOAT3 move);
+	void Rotate(DirectX::XMFLOAT3 rot);
 };

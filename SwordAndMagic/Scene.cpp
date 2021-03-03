@@ -1,7 +1,10 @@
 #include "Scene.h"
 #include "Camera.h"
 #include <algorithm>
-#include "PhyXGenerator.h"
+#include "PhysXGenerator.h"
+#include "EffectGenerator.h"
+#include "RigidDynamic.h"
+#include "RigidStatic.h"
 #include "EffectGenerator.h"
 
 /**
@@ -10,9 +13,10 @@
 C_Scene::C_Scene() {
 	sceneCamera.reset(new C_Camera());
 	sceneLight.reset(new C_FbxLight());
-	PhyXGenerator::GetInstance().CreatePhyXScene(30);
+	PhysXGenerator::GetInstance().CreatePhyXScene(30, this);
 	sceneObjList.clear();
 	EffectGenerator::EffectGenerator();
+	//PhysXGenerator::GetInstance().SetEventCallback();
 }
 
 /**
@@ -72,7 +76,7 @@ void C_Scene::Init() {
  * @brief シーン上のオブジェクト全ての更新→新規オブジェクトの追加
  */
 void C_Scene::Update() {
-	PhyXGenerator::GetInstance().Update();
+	PhysXGenerator::GetInstance().Update();
 
 	if (m_bFirst) {
 		Init();
@@ -154,4 +158,167 @@ void C_Scene::DeleteObject(int objID) {
  */
 void C_Scene::AddObject(std::unique_ptr<C_GameObject> obj) {
 	addObjList.push_back(std::move(obj));
+}
+
+/**
+ * @brief IDでオブジェクト取得(主に当たり判定用)
+ * @param[in] id 取得したいオブジェクトのID
+ * @return 取得されたオブジェクトID
+ */
+C_GameObject* C_Scene::GetObjectWithID(int id) {
+	std::vector<std::unique_ptr<C_GameObject>>::iterator itr;
+	for (itr = sceneObjList.begin(); itr != sceneObjList.end(); itr++) {
+		if ((*itr)->GetID() == id) {
+			return (*itr).get();
+		}
+	}
+}
+
+
+void C_Scene::onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs, physx::PxU32 nbPairs)
+{
+	for (physx::PxU32 i = 0; i < nbPairs; i++)
+	{
+		const physx::PxContactPair& cp = pairs[i];
+		std::vector<std::unique_ptr<C_GameObject>>::iterator itr;
+		for (itr = sceneObjList.begin(); itr != sceneObjList.end(); itr++) {
+			if (((*itr)->GetIsRigidbody())) {
+				RigidDynamicComponent* rd = (*itr)->GetComponent<RigidDynamicComponent>();
+				RigidStaticComponent* rs = (*itr)->GetComponent<RigidStaticComponent>();
+				physx::PxRigidActor* actor;
+				if (rd != NULL) {
+					actor = rd->GetActor();
+				}
+				else if (rs != NULL) {
+					actor = rs->GetActor();
+				}
+				else {
+					continue;
+				}
+
+				if ((pairHeader.actors[0] == actor))
+				{
+					std::vector<std::unique_ptr<C_GameObject>>::iterator itr2;
+					for (itr2 = sceneObjList.begin(); itr2 != sceneObjList.end(); itr2++) {
+						if (((*itr)->GetIsRigidbody())) {
+							RigidDynamicComponent* rd2 = (*itr2)->GetComponent<RigidDynamicComponent>();
+							RigidStaticComponent* rs2 = (*itr2)->GetComponent<RigidStaticComponent>();
+							physx::PxRigidActor* actor2;
+							if (rd2 != NULL) {
+								actor2 = rd2->GetActor();
+							}
+							else if (rs2 != NULL) {
+								actor2 = rs2->GetActor();
+							}
+							else {
+								continue;
+							}
+							if ((pairHeader.actors[1] == actor2)) {
+								(*itr)->OnCollision((*itr2).get());
+								break;
+							}
+						}
+					}
+				}
+				else if ((pairHeader.actors[1] == actor))
+				{
+					std::vector<std::unique_ptr<C_GameObject>>::iterator itr2;
+					for (itr2 = sceneObjList.begin(); itr2 != sceneObjList.end(); itr2++) {
+						if (((*itr)->GetIsRigidbody())) {
+							RigidDynamicComponent* rd2 = (*itr2)->GetComponent<RigidDynamicComponent>();
+							RigidStaticComponent* rs2 = (*itr2)->GetComponent<RigidStaticComponent>();
+							physx::PxRigidActor* actor2;
+							if (rd2 != NULL) {
+								actor2 = rd2->GetActor();
+							}
+							else if (rs2 != NULL) {
+								actor2 = rs2->GetActor();
+							}
+							else {
+								continue;
+							}
+							if ((pairHeader.actors[0] == actor2)) {
+								(*itr)->OnCollision((*itr2).get());
+								break;
+							}
+						}
+					}
+				}
+
+			}
+		}
+	}
+}
+
+void C_Scene::onTrigger(physx::PxTriggerPair* pairs, physx::PxU32 count) {
+	for (physx::PxU32 i = 0; i < count; i++)
+	{
+		std::vector<std::unique_ptr<C_GameObject>>::iterator itr;
+		for (itr = sceneObjList.begin(); itr != sceneObjList.end(); itr++) {
+			if (((*itr)->GetIsRigidbody())) {
+				RigidDynamicComponent* rd = (*itr)->GetComponent<RigidDynamicComponent>();
+				RigidStaticComponent* rs = (*itr)->GetComponent<RigidStaticComponent>();
+				physx::PxRigidActor* actor;
+				if (rd != NULL) {
+					actor = rd->GetActor();
+				}
+				else if (rs != NULL) {
+					actor = rs->GetActor();
+				}
+				else {
+					continue;
+				}
+
+				if ((pairs[i].otherActor == actor))
+				{
+					std::vector<std::unique_ptr<C_GameObject>>::iterator itr2;
+					for (itr2 = sceneObjList.begin(); itr2 != sceneObjList.end(); itr2++) {
+						if (((*itr)->GetIsRigidbody())) {
+							RigidDynamicComponent* rd2 = (*itr2)->GetComponent<RigidDynamicComponent>();
+							RigidStaticComponent* rs2 = (*itr2)->GetComponent<RigidStaticComponent>();
+							physx::PxRigidActor* actor2;
+							if (rd2 != NULL) {
+								actor2 = rd2->GetActor();
+							}
+							else if (rs2 != NULL) {
+								actor2 = rs2->GetActor();
+							}
+							else {
+								continue;
+							}
+							if ((pairs[i].triggerActor == actor2)) {
+								(*itr)->OnCollision((*itr2).get());
+								break;
+							}
+						}
+					}
+				}
+				else if ((pairs[1].triggerActor == actor))
+				{
+					std::vector<std::unique_ptr<C_GameObject>>::iterator itr2;
+					for (itr2 = sceneObjList.begin(); itr2 != sceneObjList.end(); itr2++) {
+						if (((*itr)->GetIsRigidbody())) {
+							RigidDynamicComponent* rd2 = (*itr2)->GetComponent<RigidDynamicComponent>();
+							RigidStaticComponent* rs2 = (*itr2)->GetComponent<RigidStaticComponent>();
+							physx::PxRigidActor* actor2;
+							if (rd2 != NULL) {
+								actor2 = rd2->GetActor();
+							}
+							else if (rs2 != NULL) {
+								actor2 = rs2->GetActor();
+							}
+							else {
+								continue;
+							}
+							if ((pairs[i].otherActor == actor2)) {
+								(*itr)->OnCollision((*itr2).get());
+								break;
+							}
+						}
+					}
+				}
+
+			}
+		}
+	}
 }

@@ -1,4 +1,6 @@
 #include "Transform.h"
+#include "RigidDynamic.h"
+#include "RigidStatic.h"
 
 using namespace DirectX;
 
@@ -46,6 +48,14 @@ XMVECTOR RotationLerp(XMVECTOR toward, XMVECTOR fromward, float per) {
 }
 
 void C_Transform::setRotation(XMFLOAT3 rot) {
+	if (rigidDynamic) {
+		rigidDynamic->SetRotation(rot);
+		return;
+	}
+	else if (rigidStatic) {
+		rigidStatic->SetRotation(rot);
+		return;
+	}
 	rotation.x = XMConvertToRadians(rot.x);
 	rotation.y = XMConvertToRadians(rot.y);
 	rotation.z = XMConvertToRadians(rot.z);
@@ -54,6 +64,14 @@ void C_Transform::setRotation(XMFLOAT3 rot) {
 }
 
 void C_Transform::setPosition(XMFLOAT3 pos) {
+	if (rigidDynamic) {
+		rigidDynamic->SetPosition(pos);
+		return;
+	}
+	else if (rigidStatic) {
+		rigidStatic->SetPosition(pos);
+		return;
+	}
 	position = pos;
 }
 
@@ -132,4 +150,12 @@ void C_Transform::move(XMFLOAT3 move) {
 
 void C_Transform::setQuaternion(XMVECTOR vec) {
 	quaternion = vec;
+}
+
+
+void C_Transform::setRigidbody(RigidDynamicComponent* rd) {
+	rigidDynamic = rd;
+}
+void C_Transform::setRigidbody(RigidStaticComponent* rs) {
+	rigidStatic = rs;
 }

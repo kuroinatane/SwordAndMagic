@@ -165,7 +165,7 @@
     <ClInclude Include="ObjectRegister.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleTypeMenu.h" />
-    <ClInclude Include="PhyXGenerator.h" />
+    <ClInclude Include="PhysXGenerator.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="RigidDynamic.h" />
     <ClInclude Include="RigidStatic.h" />
@@ -218,7 +218,7 @@
     <ClCompile Include="ObjectRegister.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleTypeMenu.cpp" />
-    <ClCompile Include="PhyXGenerator.cpp" />
+    <ClCompile Include="PhysXGenerator.cpp" />
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="RigidDynamic.cpp" />
     <ClCompile Include="RigidStatic.cpp" />

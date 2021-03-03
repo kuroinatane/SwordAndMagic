@@ -3,6 +3,8 @@
 #include "input.h"
 #include "RigidDynamic.h"
 #include "ShaderLight.h"
+#include "SceneController.h"
+#include "Effect.h"
 
 TitleComponent::TitleComponent(C_GameObject* obj) {
 	fCnt = -1.0f;
@@ -37,4 +39,14 @@ void TitleComponent::Update() {
 		fCnt = 1.0f;
 		m_isEnd = true;
 	}
+}
+
+
+void TitleComponent::OnCollisionEnter(C_GameObject* col) {
+
+}
+void TitleComponent::OnCollisionStay(C_GameObject* col) {
+}
+void TitleComponent::OnCollisionExit(C_GameObject* col) {
+	
 }

@@ -112,7 +112,7 @@ void PolygonComponent::Draw()
 	GraphicsManager::GetInstance().GetDeviceContext()->PSSetShaderResources(0, 1, m_pTexture.GetAddressOf());
 
 	POLYGON_SHADER cb;
-	cb.mProj = DirectX::XMMatrixTranspose(XMLoadFloat4x4(&(SceneController::GetInstance().GetCurrentScene()->GetCamera()->GetViewMatrix())));
+	cb.mProj = DirectX::XMMatrixTranspose(XMLoadFloat4x4(&(SceneController::GetInstance().GetCurrentScene()->GetCamera()->GetProjMatrix())));
 	cb.mView = DirectX::XMMatrixTranspose(XMLoadFloat4x4(&(SceneController::GetInstance().GetCurrentScene()->GetCamera()->GetViewMatrix())));
 	cb.mWorld = DirectX::XMMatrixTranspose(XMLoadFloat4x4(&mWorld));
 	cb.mTex = DirectX::XMMatrixTranspose(XMLoadFloat4x4(&m_mTex));

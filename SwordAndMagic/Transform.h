@@ -6,12 +6,17 @@ constexpr DirectX::XMFLOAT3 up = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
 constexpr DirectX::XMFLOAT3 forward = DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f);
 constexpr DirectX::XMFLOAT3 zero = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 
+class RigidDynamicComponent;
+class RigidStaticComponent;
+
 class C_Transform {
 private:
 	DirectX::XMFLOAT3 position;
 	DirectX::XMFLOAT3 rotation;
 	DirectX::XMFLOAT3 scale;
 	DirectX::XMVECTOR quaternion;
+	RigidDynamicComponent* rigidDynamic = NULL;
+	RigidStaticComponent* rigidStatic = NULL;
 public:
 	C_Transform();
 	~C_Transform();
@@ -36,6 +41,9 @@ public:
 
 
 	DirectX::XMFLOAT4X4 getWorldMatrix();
+
+	void setRigidbody(RigidDynamicComponent* rd);
+	void setRigidbody(RigidStaticComponent* rs);
 };
 
 DirectX::XMFLOAT3 PositionLerp(DirectX::XMFLOAT3, DirectX::XMFLOAT3, float);

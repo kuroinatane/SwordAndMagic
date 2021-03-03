@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "FbxLight.h"
 #include "GameObj.h"
+#include "PhysXGenerator.h"
 
 #include <memory>
 #include <vector>
@@ -20,7 +21,7 @@ class C_GameObject;
   *		   シーンごとに「どのオブジェクトを置くか」以外の機能はすべて共通なので
   *		   ベースクラスにすべての機能を実装し、子クラスはprivateで継承する
   */
-class C_Scene {
+class C_Scene : public physx::PxSimulationEventCallback {
 private:
 	bool m_bFirst = true;
 	std::unique_ptr<C_Camera> sceneCamera;	//!< @brief シーンで使用するカメラ
@@ -45,4 +46,12 @@ public:
 	void Draw2D();
 	void DeleteObject(int objID);
 	void AddObject(std::unique_ptr<C_GameObject> obj);
+	C_GameObject* GetObjectWithID(int id);
+
+	virtual void onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs, physx::PxU32 nbPairs);
+	virtual void onTrigger(physx::PxTriggerPair* pairs, physx::PxU32 count);
+	virtual void onConstraintBreak(physx::PxConstraintInfo*, physx::PxU32) {}
+	virtual void onWake(physx::PxActor**, physx::PxU32) {}
+	virtual void onSleep(physx::PxActor**, physx::PxU32) {}
+	virtual void onAdvance(const physx::PxRigidBody*const*, const physx::PxTransform*, const physx::PxU32) {}
 };

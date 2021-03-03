@@ -1,4 +1,5 @@
 // ゲーム オブジェクト [GameObj.cpp]
+#include <algorithm>
 #include "GameObj.h"
 #include "Scene.h"
 #include "ObjectRegister.h"
@@ -45,6 +46,22 @@ void C_GameObject::Update()
 	//	//先頭の要素をコンテナ内へ移動させる
 	//	componentList.push_back(std::move(addComponentList.front()));
 	//}
+	for (int col : currentColList) {
+		auto colItr = std::find(oldColList.begin(), oldColList.end(),col);
+		bool isExist = colItr != oldColList.end();
+		if (!isExist) {
+			//当たり判定外れました
+			std::vector<std::unique_ptr<C_Component>>::iterator itr;
+			for (itr = componentList.begin(); itr != componentList.end(); itr++) {
+				(*itr)->OnCollisionExit(m_pScene->GetObjectWithID(col));
+			}
+		}
+	}
+	oldColList.clear();
+	oldColList = currentColList;
+	currentColList.clear();
+
+
 }
 /**
  * @brief 描画関数
@@ -136,6 +153,46 @@ int C_GameObject::GetSortOrder() {
  */
 void C_GameObject::SetSortOrder(int order) {
 	sortOrder = order;
+}
+
+/**
+ * @brief Rigidbodyを持つかどうかを取得
+ * @param[in] Rigidbody持つかどうか
+ */
+bool C_GameObject::GetIsRigidbody() {
+	return isRigidbody;
+}
+
+/**
+ * @brief Rigidbodyを持つかどうかを設定。基本的にRigidbody系からの呼び出しで。
+ * @param[in] order 指定する番号
+ */
+void C_GameObject::SetIsRigidbody(bool flg) {
+	isRigidbody = flg;
+}
+
+/**
+ * @brief Rigidbodyの当たり判定から呼ばれる。内部処理はComponentに各個実装。
+ * @param[in] collision 当たったオブジェクト
+ */
+void C_GameObject::OnCollision(C_GameObject* collision) {
+	auto colItr = std::find(oldColList.begin(), oldColList.end(), collision->objectID);
+	bool isExist = colItr != oldColList.end();
+	
+	currentColList.push_back(collision->objectID);
+	//既に当たってる
+	if (isExist) {
+		std::vector<std::unique_ptr<C_Component>>::iterator itr;
+		for (itr = componentList.begin(); itr != componentList.end(); itr++) {
+			(*itr)->OnCollisionStay(collision);
+		}
+		return;
+	}
+	//前まで当たってなかった
+	std::vector<std::unique_ptr<C_Component>>::iterator itr;
+	for (itr = componentList.begin(); itr != componentList.end(); itr++) {
+		(*itr)->OnCollisionEnter(collision);
+	}
 }
 //=======================================================================================
 //	End of File

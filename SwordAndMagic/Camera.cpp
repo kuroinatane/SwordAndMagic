@@ -41,25 +41,6 @@ C_Camera::~C_Camera() {
  */
 void C_Camera::Update(void)
 {
-	/*if (InputManager::GetInstance().GetKeyPress(VK_A)) {
-		posCameraP.x += 1.0f;
-	}
-	if (InputManager::GetInstance().GetKeyPress(VK_D)) {
-		posCameraP.x -= 1.0f;
-	}
-	if (InputManager::GetInstance().GetKeyPress(VK_W)) {
-		posCameraP.z += 1.0f;
-	}
-	if (InputManager::GetInstance().GetKeyPress(VK_S)) {
-		posCameraP.z -= 1.0f;
-	}
-	if (InputManager::GetInstance().GetKeyPress(VK_SPACE)) {
-		posCameraP.y += 1.0f;
-	}
-	if (InputManager::GetInstance().GetKeyPress(VK_LSHIFT)) {
-		posCameraP.y -= 1.0f;
-	}*/
-
 	Set();
 	
 	if (fabs(shakePower) < 0.01f) {
@@ -103,17 +84,26 @@ XMFLOAT3& C_Camera::GetPosition(void)
 /**
  * @brief カメラの視点位置を変更。と同時にカメラの焦点位置も同じだけ平行移動する。
  */
-void C_Camera::SetPosition(XMFLOAT3 pos)
+void C_Camera::Move(XMFLOAT3 pos)
 {
-	XMFLOAT3 diff;
-	diff.x = posCameraR.x - posCameraP.x;
-	diff.y = posCameraR.y - posCameraP.y;
-	diff.z = posCameraR.z - posCameraP.z;
-	posCameraP = pos;
-	posCameraR = pos;
-	posCameraR.x += diff.x;
-	posCameraR.y += diff.y;
-	posCameraR.z += diff.z;
+	posCameraP.x += pos.x;
+	posCameraP.y += pos.y;
+	posCameraP.z += pos.z;
+	posCameraR.x += pos.x;
+	posCameraR.y += pos.y;
+	posCameraR.z += pos.z;
+}
+
+void C_Camera::SetPositionP(DirectX::XMFLOAT3 pos) {
+	posCameraP.x = pos.x;
+	posCameraP.y = pos.y;
+	posCameraP.z = pos.z;
+}
+
+void C_Camera::SetPositionR(DirectX::XMFLOAT3 pos) {
+	posCameraR.x = pos.x;
+	posCameraR.y = pos.y;
+	posCameraR.z = pos.z;
 }
 
 /**
@@ -132,6 +122,27 @@ XMFLOAT4X4& C_Camera::GetViewMatrix(void)
 XMFLOAT4X4& C_Camera::GetProjMatrix(void)
 {
 	return mtxProjection;
+}
+
+/**
+ * @brief カメラを回転
+ * @param[in] rot 回転値
+ */
+void C_Camera::Rotate(XMFLOAT3 rot)
+{
+	XMFLOAT3 diff;
+	diff.x = posCameraR.x - posCameraP.x;
+	diff.y = posCameraR.y - posCameraP.y;
+	diff.z = posCameraR.z - posCameraP.z;
+
+	DirectX::XMVECTOR vec = XMVector3TransformCoord(XMLoadFloat3(&diff),XMMatrixRotationRollPitchYaw(rot.x,rot.y,rot.z));
+	
+	XMFLOAT3 res;
+	XMStoreFloat3(&res, vec);
+
+	posCameraR.x = posCameraP.x + res.x;
+	posCameraR.y = posCameraP.y + res.y;
+	posCameraR.z = posCameraP.z + res.z;
 }
 
 

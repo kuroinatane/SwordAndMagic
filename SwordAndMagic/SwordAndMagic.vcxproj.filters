@@ -40,6 +40,12 @@
     <Filter Include="Components\ModelSystem">
       <UniqueIdentifier>{d6244fcb-771a-4027-a3f8-879ea10b06c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\PxSystem">
+      <UniqueIdentifier>{550ff2b8-f78c-464f-b85a-31d6b76c21e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\PxSystem">
+      <UniqueIdentifier>{23222f02-6394-447a-b33a-47ae7f9bed37}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FBXUtility.h">
@@ -177,9 +183,6 @@
     <ClInclude Include="ModelData.h">
       <Filter>Components\ModelSystem</Filter>
     </ClInclude>
-    <ClInclude Include="PhyXGenerator.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="RigidDynamic.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -203,6 +206,9 @@
     </ClInclude>
     <ClInclude Include="TitleMenu.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysXGenerator.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -332,9 +338,6 @@
     <ClCompile Include="RigidDynamic.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="PhyXGenerator.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="RigidStatic.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -352,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="SelectableUI.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysXGenerator.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -22,6 +22,8 @@ public:
 	virtual void Update(void) { return; }
 	virtual void Draw(void) { return; }
 	virtual void OnDestroy(void) { return; }
-	virtual void OnCollision(C_GameObject* col) { return; }
+	virtual void OnCollisionEnter(C_GameObject* col) { return; }
+	virtual void OnCollisionStay(C_GameObject* col) { return; }
+	virtual void OnCollisionExit(C_GameObject* col) { return; }
 	virtual void OnClick() { return; }
 };

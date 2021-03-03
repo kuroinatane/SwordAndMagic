@@ -24,5 +24,8 @@ public:
 	TitleComponent(C_GameObject* obj);
 	~TitleComponent();
 	void Update();
+	void OnCollisionEnter(C_GameObject* col);
+	void OnCollisionStay(C_GameObject* col);
+	void OnCollisionExit(C_GameObject* col);
 };
 

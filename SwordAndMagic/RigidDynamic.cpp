@@ -5,7 +5,7 @@
 
 using namespace physx;
 
-RigidDynamicComponent::RigidDynamicComponent(C_GameObject* obj, DirectX::XMFLOAT3 material, const physx::PxGeometry& geometory, bool isKinematic) {
+RigidDynamicComponent::RigidDynamicComponent(C_GameObject* obj, DirectX::XMFLOAT3 material, const physx::PxGeometry& geometory, int density ,bool isKinematic) {
 	m_pObj = obj;
 	DirectX::XMFLOAT4X4 xmMat = obj->transform.getWorldMatrix();
 	PxMat44 mat = PxMat44(
@@ -15,16 +15,19 @@ RigidDynamicComponent::RigidDynamicComponent(C_GameObject* obj, DirectX::XMFLOAT
 	PxVec4(xmMat._41, xmMat._42, xmMat._43, xmMat._44)
 	);
 	PxTransform ptx = PxTransform(mat);
-	m_pRigidDynamic = PhyXGenerator::GetInstance().AddRigidDynamic(ptx,material, geometory);
+	m_pShape = PhysXGenerator::GetInstance().CreatePhysXShape(material,geometory);
+	m_pRigidDynamic = PhysXGenerator::GetInstance().AddRigidDynamic(ptx, m_pShape, density);
 	m_pRigidDynamic->setMass(100);
 	SetKinematic(isKinematic);
 	m_pRigidDynamic->setMaxAngularVelocity(100000.0f);
-
-	PhyXGenerator::GetInstance().SetEventCallback(this);
+	m_pRigidDynamic->setMaxLinearVelocity(100000.0f);
+	obj->SetIsRigidbody(true);
 }
 
 RigidDynamicComponent:: ~RigidDynamicComponent() {
-
+	if (m_pShape) {
+		m_pShape->release();
+	}
 }
 
 void RigidDynamicComponent::Update(void) {
@@ -87,7 +90,6 @@ void RigidDynamicComponent::Move(DirectX::XMFLOAT3 move) {
 
 void RigidDynamicComponent::Rotate(DirectX::XMFLOAT3 rot) {
 	PxTransform trans = m_pRigidDynamic->getGlobalPose();
-
 	//‰ñ“]‚³‚¹‚Ä·•ª‚ðŽZo
 	DirectX::XMFLOAT4 qt = m_pObj->transform.getQuaternion();
 	m_pObj->transform.Rotate(rot);
@@ -130,29 +132,23 @@ void RigidDynamicComponent::SetLock(PxRigidDynamicLockFlag::Enum flag, bool stat
 	m_pRigidDynamic->setRigidDynamicLockFlag(flag,status);
 }
 
+physx::PxRigidActor* RigidDynamicComponent::GetActor() {
+	return m_pRigidDynamic;
 
-void RigidDynamicComponent::onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs) {
-	if (m_Hit) return;
-	for (PxU32 i = 0; i < nbPairs; i++)
-	{
-		const PxContactPair& cp = pairs[i];
-
-		if ((pairHeader.actors[0] == m_pRigidDynamic) ||
-			(pairHeader.actors[1] == m_pRigidDynamic))
-		{
-			PxRigidActor* otherActor = (m_pRigidDynamic == pairHeader.actors[0]) ?
-				pairHeader.actors[1] : pairHeader.actors[0];
-			//ˆ—‚ð‚·‚é
-			m_Hit = true;
-			//fn(otherActor);
-			std::unique_ptr<C_GameObject> obj = std::make_unique<C_GameObject>(SceneController::GetInstance().GetCurrentScene());
-			obj->transform.move(DirectX::XMFLOAT3(0, 0, 250));
-			obj->transform.setScale(DirectX::XMFLOAT3(30, 30, 30));
-			obj->AddComponent(std::make_unique<EffectComponent>(u"data/fx/Light.efk", obj.get(), -1.2f));
-			SceneController::GetInstance().GetCurrentScene()->AddObject(std::move(obj));
-
-			break;
-		}
-	}
 }
 
+void RigidDynamicComponent::SetGeometry(const PxGeometry& geometory){
+	m_pRigidDynamic->detachShape(*m_pShape);
+	m_pShape->setGeometry(geometory);
+	m_pRigidDynamic->attachShape(*m_pShape);
+	switch (m_pShape->getGeometryType()) {
+	case PxGeometryType::eBOX:
+		break;
+	case PxGeometryType::eCAPSULE:
+		break;
+	case PxGeometryType::eSPHERE:
+		break;
+	case PxGeometryType::ePLANE:
+		break;
+	}
+}

@@ -36,10 +36,13 @@ public:
 	void Update();
 	void Set();
 	DirectX::XMFLOAT3& GetPosition(void);
-	void SetPosition(DirectX::XMFLOAT3);
+	void SetPositionP(DirectX::XMFLOAT3);
+	void SetPositionR(DirectX::XMFLOAT3);
+	void Move(DirectX::XMFLOAT3);
 	DirectX::XMFLOAT4X4& GetViewMatrix(void);
 	DirectX::XMFLOAT4X4& GetProjMatrix(void);
 	DirectX::XMFLOAT3 GetLookAt();
+	void Rotate(DirectX::XMFLOAT3 rot);
 	void SetShake(float pow);
 
 	float GetViewAspect() {

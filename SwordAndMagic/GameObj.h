@@ -35,9 +35,12 @@ private:
 	bool is2D = false;
 	int objectID;		//!< @brief オブジェクト識別子、Getは外部からさせるがSetは必ず生成時のみ行う。
 	int sortOrder = 0;		//!< @brief ソート用の番号、指定がなければ0。
+	int isRigidbody = 0;		//!< @brief ソート用の番号、指定がなければ0。
 
 	std::vector<std::unique_ptr<C_Component>> componentList; //!< @brief このオブジェクトに付属しているコンポーネントのリスト。addはするがremoveは今の所実装予定無し(必要になったら実装するかもしれない)
 	std::vector<std::unique_ptr<C_Component>> addComponentList; //!< @brief このオブジェクトに付属させる予定のコンポーネントのリスト
+	std::vector<int> oldColList; //!< @brief 当たり判定チェック用、1フレーム前
+	std::vector<int> currentColList; //!< @brief 当たり判定チェック用、現在フレーム
 	C_Scene* m_pScene; //!< @brief このオブジェクトが存在するシーンへのポインタ。このポインタの指す先が破棄される時はこのオブジェクトも自動的に破棄される事になる。
 public:
 	C_Transform transform;
@@ -73,6 +76,10 @@ public:
 	void SetSortOrder(int order);
 	bool Getis2D();
 	void Set2DFlg(bool flg);
+	bool GetIsRigidbody();
+	void SetIsRigidbody(bool flg);
+	void OnCollision(C_GameObject* collision);
+	void OnTrigger(C_GameObject* collision);
 };
 
 //=======================================================================================

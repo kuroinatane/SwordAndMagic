@@ -1,8 +1,26 @@
-﻿  compilation object save succeeded; see D:\HAL\SwordAndMagic\SwordAndMagic\x64\Debug\VertexOutline.cso
-  Animator.cpp
+﻿  Animator.cpp
+  BasicMesh.cpp
+  Curtain.cpp
+  Effect.cpp
+  EffectGenerator.cpp
   FbxModel.cpp
+  GameObj.cpp
+  GameWnd.cpp
+  GraphicsManager.cpp
+  Mesh.cpp
   ModelBank.cpp
   ModelData.cpp
+  Particle.cpp
+  ParticleTypeMenu.cpp
+  Polygon.cpp
+  RigidDynamic.cpp
+  RigidStatic.cpp
+  Rotation.cpp
+  Scene.cpp
+  SceneController.cpp
+  コードを生成中...
+d:\users\81903\documents\swordandmagic\swordandmagic\scene.cpp(175): warning C4715: 'C_Scene::GetObjectWithID': 値を返さないコントロール パスがあります。
+  コンパイル中...
   SceneGame.cpp
   SceneTitle.cpp
 d:\program files (x86)\microsoft visual studio\2017\professional\vc\tools\msvc\14.16.27023\include\memory(2539): warning C4244: '引数': '_Ty' から 'float' への変換です。データが失われる可能性があります。
@@ -10,10 +28,12 @@ d:\program files (x86)\microsoft visual studio\2017\professional\vc\tools\msvc\1
           [
               _Ty=int
           ]
-  d:\hal\swordandmagic\swordandmagic\swordandmagic\scenetitle.cpp(47): note: コンパイル対象の関数 テンプレート インスタンス化 'std::unique_ptr<RotationComponent,std::default_delete<_Ty>> std::make_unique<RotationComponent,C_GameObject*,int,0>(C_GameObject *&&,int &&)' のリファレンスを確認してください
+  d:\users\81903\documents\swordandmagic\swordandmagic\scenetitle.cpp(47): note: コンパイル対象の関数 テンプレート インスタンス化 'std::unique_ptr<RotationComponent,std::default_delete<_Ty>> std::make_unique<RotationComponent,C_GameObject*,int,0>(C_GameObject *&&,int &&)' のリファレンスを確認してください
           with
           [
               _Ty=RotationComponent
           ]
+  SelectableUI.cpp
+  Title.cpp
   コードを生成中...
-  SwordAndMagic.vcxproj -> D:\HAL\SwordAndMagic\SwordAndMagic\x64\Debug\SwordAndMagic.exe
+  SwordAndMagic.vcxproj -> D:\Users\81903\Documents\SwordAndMagic\x64\Debug\SwordAndMagic.exe

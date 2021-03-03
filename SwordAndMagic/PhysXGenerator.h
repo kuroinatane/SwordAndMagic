@@ -1,5 +1,5 @@
 /**
- * @file PhyXGenerator.h
+ * @file PhysXGenerator.h
  * @author MIURA DAIKI
  * @date 2020/02/01
  */
@@ -17,10 +17,10 @@
 
 class C_Scene;
 /**
- * @class PhyXGenerator
+ * @class PhysXGenerator
  * @brief 物理演算の共通データ管理クラス。初期化とシーンおよびシーン内のオブジェクト管理を担当する。
  */
-class PhyXGenerator : public Singleton<PhyXGenerator>
+class PhysXGenerator : public Singleton<PhysXGenerator>
 {
 private:
 	float m_FPS;
@@ -32,13 +32,18 @@ private:
 	physx::PxScene*              m_Scene = nullptr; //!< @brief PhyXで使用されるシーン。
 	physx::PxPvd*              m_Pvd = nullptr; //!< @brief デバッグ用
 public:
-	PhyXGenerator();
-	~PhyXGenerator();
+	PhysXGenerator();
+	~PhysXGenerator();
 	void Init();
 	void Update();
-	void CreatePhyXScene(float fps);
+	void CreatePhyXScene(float fps, physx::PxSimulationEventCallback* callback);
 	physx::PxScene* GetCurrentPhyXScene();
-	physx::PxRigidDynamic* AddRigidDynamic(const physx::PxTransform& t, DirectX::XMFLOAT3 material, const physx::PxGeometry& geometry);
-	physx::PxRigidStatic* AddRigidStatic(const physx::PxTransform& t, DirectX::XMFLOAT3 material, const physx::PxGeometry& geometry);
+	physx::PxRigidDynamic* AddRigidDynamic(const physx::PxTransform& t, physx::PxShape* shape, float density);
+	physx::PxRigidStatic* AddRigidStatic(const physx::PxTransform& t, physx::PxShape* shape);
 	void SetEventCallback(physx::PxSimulationEventCallback* callback);
+	physx::PxShape* CreatePhysXShape(DirectX::XMFLOAT3 material, const physx::PxGeometry& geometry, bool isExclusive = false, physx::PxShapeFlags shapeFlags = physx::PxShapeFlag::eVISUALIZATION | physx::PxShapeFlag::eSCENE_QUERY_SHAPE | physx::PxShapeFlag::eSIMULATION_SHAPE);
 };
+
+physx::PxFilterFlags contactReportFilterShader(physx::PxFilterObjectAttributes attributes0, physx::PxFilterData filterData0,
+	physx::PxFilterObjectAttributes attributes1, physx::PxFilterData filterData1,
+	physx::PxPairFlags& pairFlags, const void* constantBlock, physx::PxU32 constantBlockSize);
